@@ -19,20 +19,12 @@ public class RegularPatient extends Patient {
 
     @Override
     public String toString() {
-        return "RegularPatient{" +
-                ", id=" + id +
-                ", fName='" + fName + ' ' + lName +
-                ", age=" + age +
-                "mainSymptom='" + mainSymptom + '\'' +
-                ", PCR Test Result=" + pcr +
-                "Treatment=" + treat() +
-                '}';
+        return "RegularPatient" +
+                "\n id=" + id +
+                "\n Name=" + fName + ' ' + lName +
+                "\n age=" + age +
+                "\n mainSymptom=" + mainSymptom +
+                "\n PCR Test Result=" + (false ? "Positive" : "Negative") +
+                "\n Treatment=" + treat() + "\n\n\n";
     }
-
-    //    @Override
-//    public String toString() {
-//        return "RegularPatient{" +
-//                "mainSymptom='" + mainSymptom + '\'' +
-//                '}';
-//    }
 }

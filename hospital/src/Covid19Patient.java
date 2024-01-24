@@ -29,25 +29,12 @@ public class Covid19Patient extends Patient {
 
     @Override
     public String toString() {
-        return "Covid19Patient{" +
-                "temperature=" + temperature +
-                ", id=" + id +
-                ", fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
-                ", age=" + age +
-                ", pcr=" + pcr +
-                ", PCR Test Result=" + "Postive" +
-                ", Treatment=" + treat() +
-                '}';
+        return "Covid19Patient" +
+                "\n  id=" + id +
+                "\n  Name=" + fName + " " + lName +
+                "\n  age=" + age +
+                "\n temperature=" + temperature +
+                "\n PCR Test Result=" + (true ? "Positive" : "Negative") +
+                "\n  Treatment=" + treat() + "\n\n\n";
     }
-
-    //    @Override
-//    public String toString() {
-//        return "Covid19Patient{" +
-//                "id=" + id +
-//                ", Full Name='" + fName + lName + '\'' +
-//                ", age=" + age +
-//                ", Temperatur=" + temperature +
-//        '}';
-//    }
 }

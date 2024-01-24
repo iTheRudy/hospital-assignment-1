@@ -2,7 +2,7 @@ public abstract class Patient {
     public int id;
     public String fName;
     public String lName;
-    public  int age;
+    public int age;
     public boolean pcr;
 
     public int getId() {
@@ -54,14 +54,14 @@ public abstract class Patient {
 
     abstract String treat();
 
-    @Override
-    public String toString() {
-        return "Patient{" +
-                "id=" + id +
-                ", fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
-                ", age=" + age +
-                ", pcr=" + pcr +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Patient{" +
+//                "id=" + id +
+//                ", fName='" + fName + '\'' +
+//                ", lName='" + lName + '\'' +
+//                ", age=" + age +
+//                ", pcr=" + pcr +
+//                '}';
+//    }
 }
