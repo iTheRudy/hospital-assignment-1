@@ -1,6 +1,6 @@
 
-import javax.swing.plaf.synth.SynthCheckBoxMenuItemUI;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -11,47 +11,48 @@ public class Main {
     public static void main(String[] args) {
         List<Patient> patientList = new ArrayList<>();
 
-//        Covid19Patient covid19Patient = new Covid19Patient(1, "fName", "lName", 28, 50);
-////
-//        patientList.add(covid19Patient);
-
         boolean userExited = false;
 
-//        covid19Patient.toString();
-//        System.out.println(covid19Patient.toString());
         while (!userExited) {
-            System.out.println("1. Admit a patient");
-            System.out.println("2. Print patient information");
-            System.out.println("3. Submit a PCR Result");
-            System.out.println("4. Do rounds");
-            System.out.println("5. Discharge patient");
-            System.out.println("6. Exit");
-            Scanner sc = new Scanner(System.in);
-            int userInput = sc.nextInt();
-            switch (userInput) {
-                case 1:
-                    admitPatient(patientList);
-                    break;
-                case 2:
-                    printPatientInformation(patientList);
-                    break;
-                case 3:
-                    submitPCRTestResult(patientList);
-                    break;
-                case 4:
-                    doRounds(patientList);
-                    break;
-                case 5:
-                    dischargePatient(patientList, -1);
-                    break;
-                case 6:
-                    userExited = true;
-                    break;
-                case 7:
-                    System.out.println("Please enter a valid input");
-                    break;
+            try {
+                System.out.println("1. Admit a patient");
+                System.out.println("2. Print patient information");
+                System.out.println("3. Submit a PCR Result");
+                System.out.println("4. Do rounds");
+                System.out.println("5. Discharge patient");
+                System.out.println("6. Exit");
+                Scanner sc = new Scanner(System.in);
+                int userInput = sc.nextInt();
+                switch (userInput) {
+                    case 1:
+                        admitPatient(patientList);
+                        break;
+                    case 2:
+                        printPatientInformation(patientList);
+                        break;
+                    case 3:
+                        submitPCRTestResult(patientList);
+                        break;
+                    case 4:
+                        doRounds(patientList);
+                        break;
+                    case 5:
+                        dischargePatient(patientList, -1);
+                        break;
+                    case 6:
+                        userExited = true;
+                        break;
+                    case 7:
+                        System.out.println("Please enter a valid input");
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Enter only a number");
             }
+
         }
+
+
     }
 
     public static void dischargePatient(List<Patient> patientList, int receivedId) {
@@ -74,37 +75,33 @@ public class Main {
     }
 
     public static void admitPatient(List<Patient> patientList) {
-        Scanner sc = new Scanner(System.in);
         boolean validPCRInput = false;
 
         int userInput = 0;
+
         while (!validPCRInput) {
-            System.out.println("Pcr test result");
-            System.out.println("1. Negative");
-            System.out.println("2. Positive");
             try {
+                System.out.println("Pcr test result");
+                System.out.println("1. Negative");
+                System.out.println("2. Positive");
+                Scanner sc = new Scanner(System.in);
                 userInput = sc.nextInt();
-            } catch (Exception e) {
+                validPCRInput = true;
+
+            } catch (InputMismatchException e) {
                 System.out.println("Enter only a number");
             }
-            validPCRInput = true;
         }
-
-        boolean validInput = false;
-        while (!validInput) {
-            switch (userInput) {
-                case 1:
-                    patientList.add(createRegularPatient());
-                    validInput = true;
-                    break;
-                case 2:
-                    patientList.add(createCovid19Patient());
-                    validInput = true;
-                    break;
-                default:
-                    System.out.println("Enter a valid input");
-                    break;
-            }
+        switch (userInput) {
+            case 1:
+                patientList.add(createRegularPatient());
+                break;
+            case 2:
+                patientList.add(createCovid19Patient());
+                break;
+            default:
+                System.out.println("Enter a valid input");
+                break;
         }
     }
 
@@ -117,7 +114,7 @@ public class Main {
     }
 
     public static void submitPCRTestResult(List<Patient> patientList) {
-        System.out.println("Enter user id");
+        System.out.println("Enter patient id");
         Scanner sc = new Scanner(System.in);
         int id = sc.nextInt();
         Patient patient = searchPatient(patientList, id);
@@ -209,7 +206,7 @@ public class Main {
         return searchedPatient;
     }
 
-    public static Covid19Patient createCovid19Patient() {
+    public static Patient createCovid19Patient() {
         Scanner sc = new Scanner(System.in);
         String fName;
         String lName;
@@ -227,8 +224,7 @@ public class Main {
         return covid19Patient;
     }
 
-
-    public static RegularPatient createRegularPatient() {
+    public static Patient createRegularPatient() {
         Scanner sc = new Scanner(System.in);
         String symptom = "";
         int userInput;
