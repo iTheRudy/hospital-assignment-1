@@ -63,7 +63,7 @@ public class Main {
         String lName;
         int age;
         String symptom;
-        String pcrTestResult;
+        int pcrTestResult = 0;
         System.out.println("Enter first name: ");
         fName = sc.next();
         System.out.println("Enter last name: ");
@@ -73,9 +73,27 @@ public class Main {
         sc.nextLine(); // Consume newline
         System.out.println("Enter symptom: ");
         symptom = sc.nextLine();
-        System.out.println("Enter PCR test result (Positive/Negative): ");
-        pcrTestResult = sc.nextLine();
-        Patient patient = new DiseaseXPatient(idCounter++, fName, lName, age, symptom, pcrTestResult);
+        boolean booleanPcrTestResult = false;
+        boolean validPCRInput = false;
+        while (!validPCRInput) {
+            System.out.println("Enter PCR test result 1.Positive 2.Negative): ");
+            pcrTestResult = sc.nextInt();
+
+            switch (pcrTestResult) {
+                case 1:
+                    booleanPcrTestResult = true;
+                    validPCRInput = true;
+                    break;
+                case 2:
+                    booleanPcrTestResult = false;
+                    validPCRInput = true;
+                    break;
+                default:
+                    System.out.println("Invalid input");
+            }
+        }
+
+        Patient patient = new DiseaseXPatient(idCounter++, fName, lName, age, symptom, booleanPcrTestResult);
         patientList.add(patient);
         System.out.println("Disease X patient admitted successfully.");
     }
@@ -197,7 +215,9 @@ public class Main {
         System.out.println("Enter temperature: ");
         double temperature = sc.nextDouble();
 
-        Covid19Patient covid19Patient = new Covid19Patient(patient.getId(), patient.getfName(), patient.getlName(), patient.getAge(), temperature);
+        Covid19Patient covid19Patient =
+                new Covid19Patient(patient.getId(), patient.getfName(), patient.getlName(), patient.getAge(),
+                        temperature);
 
         patientList.add(covid19Patient);
     }

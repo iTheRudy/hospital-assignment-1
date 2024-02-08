@@ -4,9 +4,9 @@ class DiseaseXPatient extends Patient {
     private final String lastName;
     private final int age;
     private final String symptoms;
-    private final String pcrTestResult;
+    private final boolean pcrTestResult;
 
-    public DiseaseXPatient(int id, String firstName, String lastName, int age, String symptoms, String pcrTestResult) {
+    public DiseaseXPatient(int id, String firstName, String lastName, int age, String symptoms, boolean pcrTestResult) {
         super(id, firstName, lastName, age);
         this.id = id;
         this.firstName = firstName;
@@ -16,14 +16,20 @@ class DiseaseXPatient extends Patient {
         this.pcrTestResult = pcrTestResult;
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
-    public String getFullName() {
-        return firstName + " " + lastName;
+    public String getFirstName() {
+        return firstName;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    @Override
     public int getAge() {
         return age;
     }
@@ -32,7 +38,7 @@ class DiseaseXPatient extends Patient {
         return symptoms;
     }
 
-    public String getPCRTestResult() {
+    public boolean isPcrTestResult() {
         return pcrTestResult;
     }
 
@@ -46,7 +52,7 @@ class DiseaseXPatient extends Patient {
                 "\n  id=" + id +
                 "\n  Name=" + fName + " " + lName +
                 "\n  age=" + age +
-                "\n PCR Test Result=" + (true ? "Positive" : "Negative") +
+                "\n PCR Test Result=" + (pcrTestResult ? "Positive" : "Negative") +
                 "\n  Treatment=" + treat() + "\n\n\n";
     }
 
