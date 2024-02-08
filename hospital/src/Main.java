@@ -20,7 +20,8 @@ public class Main {
                 System.out.println("3. Submit a PCR Result");
                 System.out.println("4. Do rounds");
                 System.out.println("5. Discharge patient");
-                System.out.println("6. Exit");
+                System.out.println("6. Admit a Disease X patient");
+                System.out.println("7. Exit");
                 Scanner sc = new Scanner(System.in);
                 int userInput = sc.nextInt();
                 switch (userInput) {
@@ -40,9 +41,12 @@ public class Main {
                         dischargePatient(patientList, -1);
                         break;
                     case 6:
-                        userExited = true;
+                        admitDiseaseXPatient(patientList);
                         break;
                     case 7:
+                        userExited = true;
+                        break;
+                    default:
                         System.out.println("Please enter a valid input");
                         break;
                 }
@@ -51,8 +55,29 @@ public class Main {
             }
 
         }
+    }
 
-
+    public static void admitDiseaseXPatient(List<Patient> patientList) {
+        Scanner sc = new Scanner(System.in);
+        String fName;
+        String lName;
+        int age;
+        String symptom;
+        String pcrTestResult;
+        System.out.println("Enter first name: ");
+        fName = sc.next();
+        System.out.println("Enter last name: ");
+        lName = sc.next();
+        System.out.println("Enter age: ");
+        age = sc.nextInt();
+        sc.nextLine(); // Consume newline
+        System.out.println("Enter symptom: ");
+        symptom = sc.nextLine();
+        System.out.println("Enter PCR test result (Positive/Negative): ");
+        pcrTestResult = sc.nextLine();
+        Patient patient = new DiseaseXPatient(idCounter++, fName, lName, age, symptom, pcrTestResult);
+        patientList.add(patient);
+        System.out.println("Disease X patient admitted successfully.");
     }
 
     public static void dischargePatient(List<Patient> patientList, int receivedId) {
@@ -166,16 +191,15 @@ public class Main {
     }
 
     public static void convertRegularPatientToCovid19Patient(List<Patient> patientList, Patient patient) {
-        Scanner sc = new Scanner(System.in);
-        if (patient instanceof Covid19Patient) {
-            return;
-        }
-        System.out.println("Enter temperature: ");
-        int temperature = sc.nextInt();
-        Patient patient1 =
-                new Covid19Patient(patient.getId(), patient.getfName(), patient.getlName(), patient.age, temperature);
         dismissPatient(patientList, patient);
-        patientList.add(patient1);
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter temperature: ");
+        double temperature = sc.nextDouble();
+
+        Covid19Patient covid19Patient = new Covid19Patient(patient.getId(), patient.getfName(), patient.getlName(), patient.getAge(), temperature);
+
+        patientList.add(covid19Patient);
     }
 
     public static void dismissPatient(List<Patient> patientList, Patient patient) {
